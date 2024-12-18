@@ -1,0 +1,14 @@
+apt_packages:
+  - git
+  - vim
+  - htop
+  - tmux
+  - zsh
+
+snap_packages:
+  - name: code
+    classic: true
+  - name: slack
+    classic: false
+  - name: spotify
+    classic: false

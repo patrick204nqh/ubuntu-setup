@@ -1,0 +1,7 @@
+common_packages:
+  - build-essential
+  - curl
+  - wget
+  - unzip
+
+perform_upgrade: "{{ upgrade_system }}"

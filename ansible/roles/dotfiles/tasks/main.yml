@@ -1,0 +1,13 @@
+---
+- name: Ensure dotfiles directory exists
+  file:
+    path: "{{ dotfiles_repo_path }}"
+    state: directory
+
+- name: Copy dotfiles from repo
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    force: yes
+  loop: "{{ dotfiles }}"
+  tags: dotfiles
