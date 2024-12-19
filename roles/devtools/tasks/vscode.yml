@@ -1,6 +1,6 @@
 ---
 - name: Ensure VSCode is installed
-  apt:
+  snap:
     name: code
     state: present
 
