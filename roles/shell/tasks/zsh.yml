@@ -34,9 +34,9 @@
 - name: Install zsh-bat plugin
   become_user: "{{ ansible_user }}"
   git:
-    repo: https://github.com/ali-frost/zsh-bat.git
+    repo: https://github.com/fdellwing/zsh-bat.git
     dest: "{{ ansible_user_home }}/.oh-my-zsh/custom/plugins/zsh-bat"
-    version: main
+    version: master
 
 - name: Install you-should-use plugin
   become_user: "{{ ansible_user }}"

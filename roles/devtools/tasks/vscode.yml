@@ -1,7 +1,7 @@
 ---
-- name: Ensure snap packages (including VSCode)
-  snap:
-    name: "{{ snap_packages }}"
+- name: Ensure VSCode is installed
+  apt:
+    name: code
     state: present
 
 - name: Install VSCode extensions

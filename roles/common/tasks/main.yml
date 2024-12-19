@@ -13,3 +13,8 @@
   apt:
     name: "{{ apt_common_packages + apt_extra_packages | default([]) }}"
     state: present
+
+- name: Install snap packages
+  snap:
+    name: "{{ snap_packages }}"
+    state: present

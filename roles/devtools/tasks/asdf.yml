@@ -13,14 +13,14 @@
 
 - name: Check if asdf is installed
   stat:
-    path: "{{ ansible_env.HOME }}/.asdf"
+    path: "{{ ansible_user_home }}/.asdf"
   register: asdf_check
 
 - name: Install asdf
   become_user: "{{ ansible_user }}"
   git:
     repo: "https://github.com/asdf-vm/asdf.git"
-    dest: "{{ ansible_env.HOME }}/.asdf"
+    dest: "{{ ansible_user_home }}/.asdf"
     version: v0.12.0
   when: not asdf_check.stat.exists
 
