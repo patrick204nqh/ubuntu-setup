@@ -7,8 +7,15 @@ apt_common_packages:
   - unzip
   - fzf
   - exa
+  - ansible
+  - bat
+  - neofetch
 
 apt_extra_packages:
+  - brave-browser
   - copyq
   - flameshot
   - zsh
+  - docker-ce
+  - docker-ce-cli
+  - docker-compose-plugin
