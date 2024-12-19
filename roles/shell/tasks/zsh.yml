@@ -1,0 +1,42 @@
+---
+- name: Ensure zsh is installed
+  apt:
+    name: zsh
+    state: present
+
+- name: Install oh-my-zsh if needed
+  become_user: "{{ ansible_user }}"
+  shell: |
+    if [ ! -d "$HOME/.oh-my-zsh" ]; then
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    fi
+  args:
+    executable: /bin/bash
+  changed_when: false
+
+- name: Install spaceship prompt theme
+  become_user: "{{ ansible_user }}"
+  git:
+    repo: https://github.com/spaceship-prompt/spaceship-prompt.git
+    dest: "{{ ansible_user_home }}/.oh-my-zsh/custom/themes/spaceship-prompt"
+    version: master
+
+- name: Symlink spaceship theme
+  file:
+    src: "{{ ansible_user_home }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
+    dest: "{{ ansible_user_home }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    state: link
+
+- name: Set zsh as default shell
+  user:
+    name: "{{ ansible_user }}"
+    shell: /usr/bin/zsh
+  when: ansible_user_shell != "/usr/bin/zsh"
+
+- name: Deploy zshrc from template
+  template:
+    src: zshrc.j2
+    dest: "{{ ansible_user_home }}/.zshrc"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"

@@ -1,0 +1,15 @@
+- hosts: local
+  become: yes
+  user: "{{ ansible_user }}"
+  vars_files:
+    - group_vars/all.yml
+    - group_vars/apt.yml
+    - group_vars/snap.yml
+    - group_vars/zsh.yml
+    - group_vars/vscode.yml
+    - group_vars/docker.yml
+    - group_vars/asdf.yml
+  roles:
+    - common
+    - shell
+    - devtools

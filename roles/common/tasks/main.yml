@@ -1,0 +1,15 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Upgrade system packages
+  apt:
+    upgrade: dist
+    autoremove: yes
+    state: latest
+
+- name: Install common APT packages
+  apt:
+    name: "{{ apt_common_packages + apt_extra_packages | default([]) }}"
+    state: present

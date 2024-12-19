@@ -1,0 +1,15 @@
+---
+- name: Ensure snap packages (including VSCode)
+  snap:
+    name: "{{ snap_packages }}"
+    state: present
+
+- name: Install VSCode extensions
+  become_user: "{{ ansible_user }}"
+  shell: |
+    for ext in {{ vscode_extensions|join(' ') }}; do
+      code --install-extension $ext --force
+    done
+  args:
+    executable: /bin/bash
+  changed_when: false

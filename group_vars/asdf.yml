@@ -1,0 +1,16 @@
+---
+asdf_plugins:
+  - name: nodejs
+    versions:
+      - "16.20.0"
+    global: "16.20.0"
+
+  - name: python
+    versions:
+      - "3.11.0"
+    global: "3.11.0"
+
+  - name: ruby
+    versions:
+      - "3.3.0"
+    global: "3.3.0"

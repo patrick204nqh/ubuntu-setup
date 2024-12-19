@@ -1,0 +1,44 @@
+---
+- name: Ensure asdf dependencies are installed
+  apt:
+    name:
+      - git
+      - curl
+      - libssl-dev
+      - zlib1g-dev
+      - build-essential
+      - libreadline-dev
+      - libffi-dev
+    state: present
+
+- name: Check if asdf is installed
+  stat:
+    path: "{{ ansible_env.HOME }}/.asdf"
+  register: asdf_check
+
+- name: Install asdf
+  become_user: "{{ ansible_user }}"
+  git:
+    repo: "https://github.com/asdf-vm/asdf.git"
+    dest: "{{ ansible_env.HOME }}/.asdf"
+    version: v0.12.0
+  when: not asdf_check.stat.exists
+
+- name: Install asdf plugins and versions
+  become_user: "{{ ansible_user }}"
+  shell: |
+    source $HOME/.asdf/asdf.sh
+    {% for plugin in asdf_plugins %}
+    if ! asdf plugin-list | grep -q {{ plugin.name }}; then
+      asdf plugin-add {{ plugin.name }}
+    fi
+    {% for ver in plugin.versions %}
+    if ! asdf where {{ plugin.name }} {{ ver }} &> /dev/null; then
+      asdf install {{ plugin.name }} {{ ver }}
+    fi
+    {% endfor %}
+    asdf global {{ plugin.name }} {{ plugin.global }}
+    {% endfor %}
+  args:
+    executable: /bin/bash
+  changed_when: false

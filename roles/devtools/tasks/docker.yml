@@ -1,0 +1,17 @@
+---
+- name: Install docker-related packages
+  apt:
+    name: "{{ docker_apt_packages }}"
+    state: present
+
+- name: Add current user to docker group
+  user:
+    name: "{{ docker_user }}"
+    groups: docker
+    append: yes
+
+- name: Enable and start docker service
+  service:
+    name: docker
+    state: started
+    enabled: true

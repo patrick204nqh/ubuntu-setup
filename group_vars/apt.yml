@@ -1,0 +1,14 @@
+---
+apt_common_packages:
+  - build-essential
+  - curl
+  - git
+  - wget
+  - unzip
+  - fzf
+  - exa
+
+apt_extra_packages:
+  - copyq
+  - flameshot
+  - zsh

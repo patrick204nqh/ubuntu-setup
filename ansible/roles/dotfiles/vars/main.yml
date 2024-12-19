@@ -1,8 +1,0 @@
-dotfiles_repo_path: "{{ ansible_env.HOME }}/dotfiles"
-dotfiles:
-  - src: .vimrc
-    dest: ~/.vimrc
-  - src: .zshrc
-    dest: ~/.zshrc
-  - src: .gitconfig
-    dest: ~/.gitconfig

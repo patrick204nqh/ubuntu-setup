@@ -1,0 +1,11 @@
+---
+- name: Download Tabby deb
+  get_url:
+    url: "{{ tabby_download_url }}"
+    dest: "/tmp/tabby.deb"
+    mode: "0644"
+
+- name: Install Tabby terminal
+  apt:
+    deb: "/tmp/tabby.deb"
+    state: present

@@ -1,0 +1,5 @@
+---
+snap_packages:
+  - code
+  - slack
+  - logseq

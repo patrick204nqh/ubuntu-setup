@@ -1,0 +1,4 @@
+---
+ansible_user: nqhuy25
+ansible_user_home: "/home/{{ ansible_user }}"
+ansible_python_interpreter: /usr/bin/python3
