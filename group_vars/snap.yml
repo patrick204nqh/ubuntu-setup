@@ -1,7 +1,8 @@
 ---
 snap_packages:
-  - firefox
-  - code
-  - logseq
-  - slack
-  - teams-for-linux
+  - name: "firefox"
+  - name: "code"
+    classic: true
+  - name: "logseq"
+  - name: "slack"
+  - name: "teams-for-linux"

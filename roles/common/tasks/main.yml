@@ -16,5 +16,7 @@
 
 - name: Install snap packages
   snap:
-    name: "{{ snap_packages }}"
+    name: "{{ item.name }}"
+    classic: "{{ item.classic | default(false) }}"
     state: present
+  loop: "{{ snap_packages }}"
