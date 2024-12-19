@@ -14,6 +14,37 @@
     executable: /bin/bash
   changed_when: false
 
+# Built-in oh-my-zsh plugins like git, asdf, jsontools, z, thefuck, fzf come bundled with oh-my-zsh.
+# The following plugins need to be installed manually:
+
+- name: Install zsh-autosuggestions plugin
+  become_user: "{{ ansible_user }}"
+  git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: "{{ ansible_user_home }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    version: master
+
+- name: Install zsh-syntax-highlighting plugin
+  become_user: "{{ ansible_user }}"
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: "{{ ansible_user_home }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    version: master
+
+- name: Install zsh-bat plugin
+  become_user: "{{ ansible_user }}"
+  git:
+    repo: https://github.com/ali-frost/zsh-bat.git
+    dest: "{{ ansible_user_home }}/.oh-my-zsh/custom/plugins/zsh-bat"
+    version: main
+
+- name: Install you-should-use plugin
+  become_user: "{{ ansible_user }}"
+  git:
+    repo: https://github.com/MichaelAquilina/zsh-you-should-use.git
+    dest: "{{ ansible_user_home }}/.oh-my-zsh/custom/plugins/you-should-use"
+    version: master
+
 - name: Install spaceship prompt theme
   become_user: "{{ ansible_user }}"
   git:
@@ -22,6 +53,7 @@
     version: master
 
 - name: Symlink spaceship theme
+  become_user: "{{ ansible_user }}"
   file:
     src: "{{ ansible_user_home }}/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme"
     dest: "{{ ansible_user_home }}/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
