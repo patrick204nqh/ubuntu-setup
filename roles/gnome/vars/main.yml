@@ -1,5 +1,6 @@
 ---
 gnome_extensions:
   - name: gnome-runcat
-    repo: https://github.com/win0err/gnome-runcat.git
-    version: master
+    uuid: runcat@kolesnikov.se
+    url: "https://github.com/win0err/gnome-runcat/releases/download/v28/runcat@kolesnikov.se.shell-extension.zip"
+    enable: true

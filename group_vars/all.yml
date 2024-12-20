@@ -4,4 +4,6 @@ ansible_user_home: "/home/{{ ansible_user }}"
 
 # Common directories
 autostart_dir: "{{ ansible_user_home }}/.config/autostart"
-gnome_extension_dir: "{{ ansible_user_home }}/.local/opt/gnome-extensions"
+
+# Gnome extensions
+gnome_extension_dir: "{{ ansible_user_home }}/.local/share/gnome-shell/extensions"

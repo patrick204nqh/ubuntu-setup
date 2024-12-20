@@ -1,34 +1,31 @@
-- name: Ensure GNOME extension directory exists
-  become: true
+- name: Create GNOME extensions directory
   file:
     path: "{{ gnome_extension_dir }}"
     state: directory
     mode: "0755"
+  run_once: true
 
-- name: Clone GNOME extensions
-  git:
-    repo: "{{ item.repo }}"
-    dest: "{{ gnome_extension_dir }}/{{ item.name }}"
-    version: "{{ item.version }}"
-    force: yes
-  with_items: "{{ gnome_extensions }}"
-  become: true
+- name: Install GNOME extensions
+  block:
+    - name: Download GNOME extension zip
+      get_url:
+        url: "{{ item.url }}"
+        dest: "/tmp/{{ item.name }}.zip"
+        mode: "0644"
+      loop: "{{ gnome_extensions }}"
 
-- name: Check if cloned directories exist
-  stat:
-    path: "{{ gnome_extension_dir }}/{{ item.name }}"
-  with_items: "{{ gnome_extensions }}"
-  register: extension_status
+    - name: Extract GNOME extension
+      unarchive:
+        src: "/tmp/{{ item.name }}.zip"
+        dest: "{{ gnome_extension_dir }}"
+        creates: "{{ gnome_extension_dir }}/{{ item.name }}"
+      when: item.url is defined
+      loop: "{{ gnome_extensions }}"
 
-- name: Fail if any directory is missing
-  fail:
-    msg: "Extension {{ item.item.name }} directory is missing or was not cloned correctly."
-  with_items: "{{ extension_status.results }}"
-  when: not item.stat.exists
-
-- name: Build GNOME extensions
-  shell: make
-  args:
-    chdir: "{{ gnome_extension_dir }}/{{ item.name }}"
-  with_items: "{{ gnome_extensions }}"
-  become: true
+    - name: Enable GNOME extension
+      command: "gnome-extensions enable {{ item.uuid }}"
+      loop: "{{ gnome_extensions }}"
+      when:
+        - item.enable | default(false)
+        - item.uuid is defined
+      changed_when: "'{{ item.uuid }}' not in command('gnome-extensions list --enabled', warn=False, failed_when=False).stdout"
