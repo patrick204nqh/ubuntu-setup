@@ -6,9 +6,11 @@
       - gnupg
       - apt-transport-https
     state: present
+  become: yes
 
 - name: Add Tabby repository and install Tabby
   shell: |
     curl -s https://packagecloud.io/install/repositories/eugeny/tabby/script.deb.sh | bash
   args:
     executable: /bin/bash
+  become: yes

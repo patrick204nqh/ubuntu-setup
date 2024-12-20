@@ -9,6 +9,7 @@ apt_common_packages:
   - exa
   - ansible
   - bat
+  - htop
   - neofetch
 
 apt_extra_packages:
@@ -18,3 +19,6 @@ apt_extra_packages:
   - docker-ce
   - docker-ce-cli
   - docker-compose-plugin
+  - python3-dev
+  - python3-pip
+  - python3-setuptools
