@@ -1,11 +1,14 @@
 ---
-- name: Download Tabby deb
-  get_url:
-    url: "{{ tabby_download_url }}"
-    dest: "/tmp/tabby.deb"
-    mode: "0644"
-
-- name: Install Tabby terminal
+- name: Ensure required dependencies are installed
   apt:
-    deb: "/tmp/tabby.deb"
+    name:
+      - curl
+      - gnupg
+      - apt-transport-https
     state: present
+
+- name: Add Tabby repository and install Tabby
+  shell: |
+    curl -s https://packagecloud.io/install/repositories/eugeny/tabby/script.deb.sh | bash
+  args:
+    executable: /bin/bash

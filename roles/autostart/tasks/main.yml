@@ -1,0 +1,13 @@
+---
+- name: Ensure autostart directory exists
+  file:
+    path: "{{ autostart_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Copy .desktop files to autostart directory
+  copy:
+    src: "{{ item }}"
+    dest: "{{ autostart_dir }}/{{ item }}"
+    mode: "0644"
+  with_items: "{{ desktop_files }}"
