@@ -8,4 +8,24 @@
     repo: "{{ item.repo }}"
     dest: "{{ ansible_user_home }}/.oh-my-zsh/custom/plugins/{{ item.name }}"
     version: master
-  with_items: "{{ zsh_plugins }}"
+  with_items:
+    - {
+        name: "zsh-autosuggestions",
+        repo: "https://github.com/zsh-users/zsh-autosuggestions.git",
+      }
+    - {
+        name: "zsh-syntax-highlighting",
+        repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git",
+      }
+    - { name: "zsh-bat", repo: "https://github.com/fdellwing/zsh-bat.git" }
+    - {
+        name: "you-should-use",
+        repo: "https://github.com/MichaelAquilina/zsh-you-should-use.git",
+      }
+  when: item.name in zsh_plugins
+
+- name: Install thefuck via pip
+  pip:
+    name: thefuck
+    executable: pip3
+  when: "'thefuck' in zsh_plugins"
