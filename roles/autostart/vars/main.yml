@@ -1,7 +1,6 @@
 ---
 autostart_dir: "{{ ansible_user_home }}/.config/autostart"
 desktop_files:
-  - brave-browser.desktop
   - Flameshot.desktop
   - tabby.desktop
   - com.github.hluk.copyq.desktop

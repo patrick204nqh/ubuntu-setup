@@ -1,2 +1,5 @@
 ---
 - include_tasks: zsh.yml
+- include_tasks: plugins.yml
+- include_tasks: theme.yml
+- include_tasks: config.yml

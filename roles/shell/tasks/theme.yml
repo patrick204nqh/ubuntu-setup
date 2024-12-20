@@ -1,0 +1,14 @@
+---
+- name: Install {{ zsh_theme }} theme
+  become_user: "{{ ansible_user }}"
+  git:
+    repo: "{{ zsh_theme_repo }}"
+    dest: "{{ ansible_user_home }}/.oh-my-zsh/custom/themes/{{ zsh_theme_dir }}"
+    version: master
+
+- name: Symlink theme
+  become_user: "{{ ansible_user }}"
+  file:
+    src: "{{ ansible_user_home }}/.oh-my-zsh/custom/themes/{{ zsh_theme_dir }}/{{ zsh_theme }}.zsh-theme"
+    dest: "{{ ansible_user_home }}/.oh-my-zsh/custom/themes/{{ zsh_theme }}.zsh-theme"
+    state: link

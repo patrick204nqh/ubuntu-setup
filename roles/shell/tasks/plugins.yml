@@ -1,0 +1,11 @@
+---
+# Built-in oh-my-zsh plugins like git, asdf, jsontools, z, thefuck, fzf come bundled with oh-my-zsh.
+# The following plugins need to be installed manually:
+
+- name: Install Zsh plugins
+  become_user: "{{ ansible_user }}"
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ ansible_user_home }}/.oh-my-zsh/custom/plugins/{{ item.name }}"
+    version: master
+  with_items: "{{ zsh_plugins }}"

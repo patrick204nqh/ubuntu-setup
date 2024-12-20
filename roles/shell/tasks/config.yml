@@ -1,0 +1,14 @@
+---
+- name: Deploy `.zshrc` from template
+  template:
+    src: zshrc.j2
+    dest: "{{ ansible_user_home }}/.zshrc"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
+
+- name: Set Zsh as default shell
+  user:
+    name: "{{ ansible_user }}"
+    shell: /usr/bin/zsh
+  when: ansible_user_shell != "/usr/bin/zsh"
