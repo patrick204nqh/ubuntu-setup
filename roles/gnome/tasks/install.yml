@@ -22,10 +22,15 @@
       when: item.url is defined
       loop: "{{ gnome_extensions }}"
 
+    - name: Gather enabled GNOME extensions
+      command: "gnome-extensions list --enabled"
+      register: enabled_extensions
+      failed_when: false
+
     - name: Enable GNOME extension
       command: "gnome-extensions enable {{ item.uuid }}"
       loop: "{{ gnome_extensions }}"
       when:
         - item.enable | default(false)
         - item.uuid is defined
-      changed_when: "'{{ item.uuid }}' not in command('gnome-extensions list --enabled', warn=False, failed_when=False).stdout"
+        - item.uuid not in enabled_extensions.stdout
