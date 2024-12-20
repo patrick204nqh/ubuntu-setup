@@ -11,7 +11,7 @@
 
 - name: Install common APT packages
   apt:
-    name: "{{ apt_common_packages + apt_extra_packages | default([]) }}"
+    name: "{{ apt_all_packages | default([]) }}"
     state: present
 
 - name: Install snap packages

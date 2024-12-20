@@ -7,18 +7,30 @@ apt_common_packages:
   - unzip
   - fzf
   - exa
-  - ansible
+  - zsh
   - bat
   - htop
   - neofetch
+  - ansible
 
-apt_extra_packages:
+# GUI and desktop tools
+apt_desktop_packages:
   - copyq
   - flameshot
-  - zsh
+
+# Docker-related packages
+apt_docker_packages:
   - docker-ce
   - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
   - docker-compose-plugin
+
+# Python-related packages
+apt_python_packages:
   - python3-dev
   - python3-pip
   - python3-setuptools
+
+# Combine all packages
+apt_all_packages: "{{ apt_common_packages + apt_desktop_packages + apt_docker_packages + apt_python_packages }}"

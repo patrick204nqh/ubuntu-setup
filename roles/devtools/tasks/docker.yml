@@ -1,7 +1,7 @@
 ---
 - name: Install docker-related packages
   apt:
-    name: "{{ docker_apt_packages }}"
+    name: "{{ apt_docker_packages }}"
     state: present
 
 - name: Add current user to docker group
