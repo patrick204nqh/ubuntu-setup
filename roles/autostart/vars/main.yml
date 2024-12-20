@@ -1,8 +1,19 @@
 ---
-autostart_dir: "{{ ansible_user_home }}/.config/autostart"
 desktop_files:
   - gnome-runcat.desktop
   - com.github.hluk.copyq.desktop
   - Flameshot.desktop
   - tabby.desktop
   - teams-for-linux_teams-for-linux.desktop
+
+desktop_templates:
+  - src: gnome-runcat.desktop.j2
+    dest: gnome-runcat.desktop
+  - src: com.github.hluk.copyq.desktop.j2
+    dest: com.github.hluk.copyq.desktop
+  - src: Flameshot.desktop.j2
+    dest: Flameshot.desktop
+  - src: tabby.desktop.j2
+    dest: tabby.desktop
+  - src: teams-for-linux_teams-for-linux.desktop.j2
+    dest: teams-for-linux_teams-for-linux.desktop

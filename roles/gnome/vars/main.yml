@@ -1,7 +1,5 @@
 ---
-gnome_extension_dir: "/opt"
-
 gnome_extensions:
   - name: gnome-runcat
     repo: https://github.com/win0err/gnome-runcat.git
-    version: main
+    version: master

@@ -5,9 +5,9 @@
     state: directory
     mode: "0755"
 
-- name: Copy .desktop files to autostart directory
-  copy:
-    src: "{{ item }}"
-    dest: "{{ autostart_dir }}/{{ item }}"
+- name: Deploy .desktop files using templates
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ autostart_dir }}/{{ item.dest }}"
     mode: "0644"
-  with_items: "{{ desktop_files }}"
+  with_items: "{{ desktop_templates }}"

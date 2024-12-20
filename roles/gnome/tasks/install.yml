@@ -1,23 +1,34 @@
----
 - name: Ensure GNOME extension directory exists
+  become: true
   file:
     path: "{{ gnome_extension_dir }}"
     state: directory
     mode: "0755"
 
 - name: Clone GNOME extensions
-  with_items: "{{ gnome_extensions }}"
-  loop_control:
-    loop_var: gnome_extension
   git:
-    repo: "{{ gnome_extension.repo }}"
-    dest: "{{ gnome_extension_dir }}/{{ gnome_extension.name }}"
-    version: "{{ gnome_extension.version }}"
+    repo: "{{ item.repo }}"
+    dest: "{{ gnome_extension_dir }}/{{ item.name }}"
+    version: "{{ item.version }}"
+    force: yes
+  with_items: "{{ gnome_extensions }}"
+  become: true
+
+- name: Check if cloned directories exist
+  stat:
+    path: "{{ gnome_extension_dir }}/{{ item.name }}"
+  with_items: "{{ gnome_extensions }}"
+  register: extension_status
+
+- name: Fail if any directory is missing
+  fail:
+    msg: "Extension {{ item.item.name }} directory is missing or was not cloned correctly."
+  with_items: "{{ extension_status.results }}"
+  when: not item.stat.exists
 
 - name: Build GNOME extensions
-  with_items: "{{ gnome_extensions }}"
-  loop_control:
-    loop_var: gnome_extension
   shell: make
   args:
-    chdir: "{{ gnome_extension_dir }}/{{ gnome_extension.name }}"
+    chdir: "{{ gnome_extension_dir }}/{{ item.name }}"
+  with_items: "{{ gnome_extensions }}"
+  become: true

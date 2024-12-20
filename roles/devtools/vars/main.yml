@@ -1,4 +1,11 @@
 ---
+vscode_extensions:
+  - ms-python.python
+  - esbenp.prettier-vscode
+  - ms-azuretools.vscode-docker
+
+docker_user: "{{ ansible_user }}"
+
 asdf_plugins:
   - name: nodejs
     versions:
