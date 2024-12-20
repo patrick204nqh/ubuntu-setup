@@ -1,0 +1,23 @@
+---
+- name: Ensure GNOME extension directory exists
+  file:
+    path: "{{ gnome_extension_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Clone GNOME extensions
+  with_items: "{{ gnome_extensions }}"
+  loop_control:
+    loop_var: gnome_extension
+  git:
+    repo: "{{ gnome_extension.repo }}"
+    dest: "{{ gnome_extension_dir }}/{{ gnome_extension.name }}"
+    version: "{{ gnome_extension.version }}"
+
+- name: Build GNOME extensions
+  with_items: "{{ gnome_extensions }}"
+  loop_control:
+    loop_var: gnome_extension
+  shell: make
+  args:
+    chdir: "{{ gnome_extension_dir }}/{{ gnome_extension.name }}"

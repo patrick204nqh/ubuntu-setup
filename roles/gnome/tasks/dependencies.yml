@@ -1,0 +1,10 @@
+---
+- name: Install required system packages
+  apt:
+    name:
+      - git
+      - make
+      - gnome-shell-extension-prefs
+      - gnome-shell-extension-appindicator
+    state: present
+    update_cache: yes

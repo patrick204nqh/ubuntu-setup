@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=/opt/gnome-runcat/gnome-runcat
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name=gnome-runcat
+Comment=RunCat CPU usage indicator for GNOME Shell

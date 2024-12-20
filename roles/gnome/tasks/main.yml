@@ -1,0 +1,6 @@
+---
+- name: Install GNOME-related dependencies
+  include_tasks: dependencies.yml
+
+- name: Install GNOME extensions like gnome-runcat
+  include_tasks: install.yml
